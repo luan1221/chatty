@@ -2,16 +2,11 @@ import { Request, Response } from 'express';
 import { MessagesService } from '../services/MessagesService';
 
 class MessagesController {
-
-  private messagesService: MessagesService;
-
-  constructor() {
-    this.messagesService = new MessagesService();
-  }
-
+  
   async create(req: Request, res: Response) {
     const { adminId, text, userId } = req.body;
-    const message = await this.messagesService.create({
+    const messagesService = new MessagesService();
+    const message = await messagesService.create({
       adminId,
       text,
       userId
@@ -21,7 +16,8 @@ class MessagesController {
 
   async showByUser(req: Request, res: Response) {
     const { id } = req.params;
-    const list = await this.messagesService.listByUser(id);
+    const messagesService = new MessagesService();
+    const list = await messagesService.listByUser(id);
     return res.json(list);
   }
 
