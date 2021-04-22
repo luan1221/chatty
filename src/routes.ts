@@ -7,6 +7,7 @@ const router = Router();
 
 router.get('/settings/:username', SettingsController.findByUsername);
 router.post('/settings', SettingsController.create);
+router.put('/settings/:username', SettingsController.update);
 
 router.post('/users', UsersController.create);
 
