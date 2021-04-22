@@ -5,6 +5,7 @@ import MessagesController from './controllers/MessagesController';
 
 const router = Router();
 
+router.get('/settings/:username', SettingsController.findByUsername);
 router.post('/settings', SettingsController.create);
 
 router.post('/users', UsersController.create);
