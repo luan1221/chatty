@@ -25,6 +25,22 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
   });
 
   socket.on('client-list-all-messages', (messages) => {
-    console.log('messages', messages);
+    var templateClient = document.getElementById('message-user-template')
+      .innerHTML;
+    var templateAdmin = document.getElementById('admin-template').innerHTML;
+    messages.forEach(message => {
+      if (message.adminId === null) {
+        const rendered = Mustache.render(templateClient, {
+          message: message.text,
+          email
+        });
+        document.getElementById('messages').innerHTML += rendered;
+      } else {
+        const rendered = Mustache.render(templateAdmin, {
+          message_admin: message.text
+        });
+        document.getElementById('messages').innerHTML += rendered;
+      }
+    });
   });
 });
