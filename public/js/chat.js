@@ -1,3 +1,5 @@
+let socketAdminId = null;
+
 document.querySelector("#start_chat").addEventListener("click", (event) => {
   const socket = io();
   
@@ -45,8 +47,15 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
   });
 
   socket.on('admin-send-to-client', (message) => {
-    console.log(message);
+    socketAdminId = message.socketId;
+    const templateAdmin = document.getElementById('admin-template').innerHTML;
+    const rendered = Mustache.render(templateAdmin, {
+      message_admin: message.text
+    });
+    document.getElementById('messages').innerHTML += rendered;
   });
 });
+
+
 
 
