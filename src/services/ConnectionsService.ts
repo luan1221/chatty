@@ -56,5 +56,5 @@ export class ConnectionsService {
       .where("userId = :userId", { userId })
       .execute();
   }
-  }
+  
 }
