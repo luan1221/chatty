@@ -41,4 +41,20 @@ export class ConnectionsService {
     });
     return connections;
   }
+
+  async findBySocketId(socketId: string) {
+    const user = await this.connectionsRepository.findOne({
+      socketId
+    });
+    return user;
+  }
+
+  async updateAdminId(userId: string, adminId: string) {
+    await this.connectionsRepository.createQueryBuilder()
+      .update(Connection)
+      .set({ adminId })
+      .where("userId = :userId", { userId })
+      .execute();
+  }
+  }
 }
