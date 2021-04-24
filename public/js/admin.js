@@ -52,3 +52,12 @@ function call(id) {
     });
   });
 }
+
+function sendMessage(id) {
+  const text = document.getElementById(`send_message_${id}`);
+  const params = {
+    text: text.value,
+    userId: id
+  }
+  socket.emit('admin-send-message', params);
+}

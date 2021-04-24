@@ -16,4 +16,19 @@ io.on('connect', async (socket) => {
     const allMessages = await messagesService.listByUser(userId);
     callback(allMessages);
   });
-})
+
+  socket.on('admin-send-message', async (params) => {
+    const { userId, text } = params;
+    await messagesService.create({
+      text,
+      userId,
+      adminId: socket.id
+    });
+    const { socketId } = await connectionsService.findByUserId(userId);
+    io.to(socketId).emit('admin-send-to-client', {
+      text,
+      socketId: socket.id
+    });
+    
+  });
+});

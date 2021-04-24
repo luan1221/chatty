@@ -43,4 +43,10 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
       }
     });
   });
+
+  socket.on('admin-send-to-client', (message) => {
+    console.log(message);
+  });
 });
+
+
